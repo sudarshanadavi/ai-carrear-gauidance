@@ -1,3 +1,4 @@
 {
-    "kiroAgent.configureMCP": "Enable"
+    "kiroAgent.configureMCP": "Enable",
+    "git.ignoreLimitWarning": true
 }
