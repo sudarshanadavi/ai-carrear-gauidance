@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Career Guidance</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+</head>
+<body>
+  <div class="card wide">
+    <div class="header-row">
+      <h1>AI Career Guidance</h1>
+      <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+    </div>
+    <p class="welcome">Hello, <strong>{{ user }}</strong>! Let's find your ideal career path.</p>
+
+    <form method="POST">
+      <label for="interest">Your Interest Area</label>
+      <select name="interest" id="interest" required>
+        <option value="">-- Select Interest --</option>
+        <option value="technology">Technology</option>
+        <option value="science">Science</option>
+        <option value="arts">Arts</option>
+        <option value="business">Business</option>
+        <option value="healthcare">Healthcare</option>
+      </select>
+
+      <label for="skill">Your Top Skill</label>
+      <select name="skill" id="skill" required>
+        <option value="">-- Select Skill --</option>
+        <option value="programming">Programming</option>
+        <option value="design">Design</option>
+        <option value="problem solving">Problem Solving</option>
+        <option value="research">Research</option>
+        <option value="mathematics">Mathematics</option>
+        <option value="creativity">Creativity</option>
+        <option value="communication">Communication</option>
+        <option value="leadership">Leadership</option>
+        <option value="helping others">Helping Others</option>
+      </select>
+
+      <button type="submit">Find My Career</button>
+    </form>
+
+    {% if careers %}
+    <div class="results">
+      <h3>Recommended Careers for You</h3>
+      <ul>
+        {% for career in careers %}
+          <li>{{ career }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% if history %}
+    <div class="history">
+      <h3>Your Past Searches</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Interest</th>
+            <th>Skill</th>
+            <th>Recommended Careers</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in history %}
+          <tr>
+            <td>{{ row['interest'] | capitalize }}</td>
+            <td>{{ row['skill'] | capitalize }}</td>
+            <td>{{ row['recommended_careers'] }}</td>
+            <td>{{ row['submitted_at'][:10] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>
